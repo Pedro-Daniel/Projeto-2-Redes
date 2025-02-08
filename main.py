@@ -9,3 +9,4 @@ class Node:
 
 	def access_neighbors(self):
 		for neighbor in self.neighbors:
+			pass
