@@ -5,14 +5,6 @@ class No:
         self.nome = nome
         self.endereco = endereco
 
-class Roteador(No):
-    def __init__(self, nome , endereco): #endereço ip
-        super().__init__(nome, endereco)
-        self.tabela_rotas = {}
-
-    def adicionar_rota(self, destino, proximo):
-        self.tabela_rotas[destino] = proximo
-
 class Rede:
     def __init__(self):
         self.grafo = nx.Graph()
