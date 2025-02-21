@@ -1,5 +1,6 @@
 import networkx as nx
-
+import matplotlib.pyplot as plt
+from hierachy import hierarchy_pos as h
 class NetworkSimulator:
     def __init__(self):
         self.graph = nx.Graph()
@@ -82,11 +83,10 @@ class NetworkSimulator:
             print("Destino inalcançável.")
 
     def traceroute(self, source_ip, dest_ip):
-        """
-        Simula o comando traceroute:
-         - Encontra os nós de origem e destino a partir do IP.
-         - Exibe os hops (saltos) do caminho encontrado.
-        """
+        # Simula o comando traceroute:
+        #  - Encontra os nós de origem e destino a partir do IP.
+        #  - Exibe os hops (saltos) do caminho encontrado.
+
         src = self.find_node_by_ip(source_ip)
         dest = self.find_node_by_ip(dest_ip)
 
@@ -109,7 +109,9 @@ if __name__ == "__main__":
     print("Exemplos de IPs disponíveis na rede:")
     for node, info in sim.nodes.items():
         print(f"{node}: {info['ip']} ({info['type']})")
-
+    pos = h(sim.graph,"Core")    
+    nx.draw(sim.graph,pos=pos,with_labels=True)
+    plt.savefig('hierarchy.png')
     while True:
         print("\nComandos disponíveis: ping, traceroute, exit")
         cmd = input("Digite o comando: ").strip().lower()
@@ -124,5 +126,6 @@ if __name__ == "__main__":
             source = input("Digite o IP de origem: ").strip()
             dest = input("Digite o IP de destino: ").strip()
             sim.traceroute(source, dest)
+        
         else:
             print("Comando não reconhecido.")
