@@ -16,7 +16,7 @@ Repositório dedicado ao trabalho da matéria de redes de computadores. Este pro
     python main.py
 2. Siga as instruções no terminal para executar comandos como ping e traceroute
 
-integrante:
-. Marcelo Rodrigues - 221018960
-. Caio Merçon - 23102874
-. Pedro Bomtempo - 202028759 
+## Integrantes:
+- Marcelo Rodrigues - 221018960
+- Caio Merçon - 23102874
+- Pedro Bomtempo - 202028759 
