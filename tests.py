@@ -6,6 +6,7 @@ class NetworkSimulator:
         self.graph = nx.Graph()
         self.nodes = {}
         self.build_topology()
+        self.labels={}
 
     def add_node(self, name, ip, node_type):
         """Adiciona um nó à rede com nome, IP e tipo (host, router ou switch)."""
@@ -25,16 +26,16 @@ class NetworkSimulator:
         self.add_node("a2", "192.168.0.133", "router")
 
         # Switches de borda (representando as subredes)
-        self.add_node("Edge1", "192.168.0.2", "switch")   # Subrede e1 (capacidade para 24 hosts)
-        self.add_node("Edge2", "192.168.0.34", "switch")  # Subrede e2 (capacidade para 24 hosts)
-        self.add_node("Edge3", "192.168.0.66", "switch")  # Subrede e3 (capacidade para 15 hosts ou mais)
-        self.add_node("Edge4", "192.168.0.98", "switch")  # Subrede e4 (capacidade para 15 hosts ou mais)
+        self.add_node("Edge1", "235.123.1.35", "switch")   # Subrede e1 (capacidade para 24 hosts)
+        self.add_node("Edge2", "192.168.2.35", "switch")  # Subrede e2 (capacidade para 24 hosts)
+        self.add_node("Edge3", "192.168.3.25", "switch")  # Subrede e3 (capacidade para 15 hosts ou mais)
+        self.add_node("Edge4", "192.168.0.25", "switch")  # Subrede e4 (capacidade para 15 hosts ou mais)
 
         # Hosts (um por subrede para exemplificar)
-        self.add_node("Host1", "192.168.0.1", "host")
-        self.add_node("Host2", "192.168.0.33", "host")
-        self.add_node("Host3", "192.168.0.65", "host")
-        self.add_node("Host4", "192.168.0.97", "host")
+        self.add_node("Host1", "235.123.1/27", "host")#24
+        self.add_node("Host2", "235.123.2/27", "host")#24
+        self.add_node("Host3", "235.123.3/28", "host")#15
+        self.add_node("Host4", "235.123.4/28", "host")#15
 
         # Conexões da topologia:
         # Conecta o Core aos roteadores de agregação
@@ -52,6 +53,8 @@ class NetworkSimulator:
         self.add_edge("Edge2", "Host2")
         self.add_edge("Edge3", "Host3")
         self.add_edge("Edge4", "Host4")
+
+        self.labels = {node: f"{node}\n{data['ip']}" for node, data in self.graph.nodes(data=True)}
 
     def find_node_by_ip(self, ip):
         for node, data in self.graph.nodes(data=True):
@@ -103,15 +106,22 @@ class NetworkSimulator:
         except nx.NetworkXNoPath:
             print("Destino inalcançável.")
 
+    def draw(self):
+        self.labels = {node: f"{node}\n{data['ip']}" for node, data in self.graph.nodes(data=True)}
+        pos = h(sim.graph,"Core")  
+        # nx.draw_networkx(sim.graph,pos=pos,labels=sim.labels,node_size=500,with_labels=True)
+        nx.draw(sim.graph,pos=pos,labels=sim.labels,node_size=500,with_labels=True)
+        # plt.show()
+        plt.savefig('hierarchy.png')
+
 if __name__ == "__main__":
     sim = NetworkSimulator()
     print("Bem-vindo ao simulador de rede!\n")
     print("Exemplos de IPs disponíveis na rede:")
-    for node, info in sim.nodes.items():
-        print(f"{node}: {info['ip']} ({info['type']})")
-    pos = h(sim.graph,"Core")    
-    nx.draw(sim.graph,pos=pos,with_labels=True)
-    plt.savefig('hierarchy.png')
+    sim.draw()
+    
+    
+
     while True:
         print("\nComandos disponíveis: ping, traceroute, exit")
         cmd = input("Digite o comando: ").strip().lower()
@@ -126,6 +136,5 @@ if __name__ == "__main__":
             source = input("Digite o IP de origem: ").strip()
             dest = input("Digite o IP de destino: ").strip()
             sim.traceroute(source, dest)
-        
         else:
             print("Comando não reconhecido.")
