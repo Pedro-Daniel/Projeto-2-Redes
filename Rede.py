@@ -15,14 +15,14 @@ class Roteador(No):
 
 class Rede:
     def __init__(self):
-        self.grafo = nx.DiGraph()
+        self.grafo = nx.Graph()
         self.nos = {}
     
     def adicionar_no(self, no):
         self.nos[no.nome] = no
         self.grafo.add_node(no.nome)
     
-    def adicionar_link(self, no1, no2, custo=1):
+    def adicionar_link(self, no1,no2, custo=1):
         self.grafo.add_edge(no1, no2, weight=custo)
         #self.grafo.add_edge(no2, no1, custo=custo)
 
@@ -44,3 +44,6 @@ class Rede:
         
         except nx.NetworkXNoPath:
             print(f"Não há caminho entre os nós, falha ao traçar rota")
+    def printar(self):
+        print(self.nos)
+        print(self.grafo)
