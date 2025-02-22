@@ -1,4 +1,4 @@
-# Projeto-2 Redes de Computadores
+# Projeto 2 - Redes de Computadores
 
 Repositório dedicado ao trabalho da matéria de redes de computadores. Este projeto simula uma rede com topologia de árvore, implementando funcionalidades básicas como ping e traceroute.
 
@@ -18,5 +18,5 @@ Repositório dedicado ao trabalho da matéria de redes de computadores. Este pro
 
 ## Integrantes:
 - Marcelo Rodrigues - 221018960
-- Caio Merçon - 23102874
+- Caio Merçon - 231028746
 - Pedro Bomtempo - 202028759 
