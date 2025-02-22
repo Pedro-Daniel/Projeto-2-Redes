@@ -3,7 +3,7 @@
 Repositório dedicado ao trabalho da matéria de redes de computadores. Este projeto simula uma rede com topologia de árvore, implementando funcionalidades básicas como ping e traceroute.
 
 ## Requisitos
-- Python 3.x
+- Python 3.12.9
 - Biblioteca NetworkX
 
 ## Instalação
